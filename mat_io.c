@@ -1,6 +1,7 @@
 #include "mat_io.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /**
  * Zwraca <> NULL - udalo sie wczytac
@@ -10,18 +11,29 @@ Matrix *readFromFile(char *fname)
 {
 	int r, c;
 	int ir, ic;
+	double a;
 	FILE *fin = fopen(fname, "r");
 	Matrix *mat = NULL;
 
 	if (fin != NULL)
 	{
-		fscanf(fin, "%d %d", &r, &c);
+		if(fscanf(fin, "%d %d", &r, &c) != 2)
+		{
+			fprintf(stderr, "Śmieci w pliku %s !\n", fname);
+			return NULL;
+		}		
 		mat = createMatrix(r, c);
 		if (mat != NULL)
 		{
 			for (ir = 0; ir < r; ir++)
-				for (ic = 0; ic < c; ic++)
-					fscanf(fin, "%lf", &(mat->data[ir][ic]));
+				for (ic = 0; ic < c; ic++){
+					if( (fscanf(fin, "%lf", &a)) != 1)
+					{
+						fprintf(stderr, "Śmieci w pliku %s !\n", fname);
+						return NULL;
+					}
+					mat->data[ir][ic] = a;
+					}
 		}
 		else
 		{

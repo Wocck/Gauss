@@ -59,14 +59,5 @@ eliminate (int n, double **AB)
      }
    */
 
-  printf ("\n\nAB:\n");
-  for (int i = 0; i < n; i++)
-    {
-      for (int j = 0; j <= n; j++)
-	printf ("%lf ", AB[i][j]);
-      printf ("\n");
-    }
-
-
   return 0;
 }
