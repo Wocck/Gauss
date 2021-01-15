@@ -1,0 +1,74 @@
+#include "gauss.h"
+#include <cmath>
+/**
+ * Zwraca 0 - elimnacja zakonczona sukcesem
+ * Zwraca 1 - macierz osobliwa - dzielenie przez 0
+ */
+int
+eliminate (int n, double **AB)
+{
+  int i, j, k;
+  double m;
+
+  // eliminacja współczynników
+
+  for (k = 0; k < N; k++)
+    {
+     Find the best pivot
+             int p = k;               
+                     double maxPivot = 0.0;                          
+                             for (i = k; i < N; i++)                  
+                                     {
+                                                 if (fabs(U[i][k] > maxPivot))
+                                                             {
+                                                                             maxPivot = fabs(U[i][k]);
+                                                                                             p = i;
+                                                                                                        }
+                                                                                                                 }
+    
+                                                                                                                         // Swap rows k and p
+                                                                                                                                 if (p != k)
+                                                                                                                                         {
+                                                                                                                                                     for (i = k; i < N + 1; i++)
+                                                                                                                                                                     std::swap(U[p][i], U[k][i]);
+                                                                                                                                                                             }
+    
+                                                                                                                                                                                     // Elimination of variables
+                                                                                                                                                                                             for (i = k + 1; i < N; i++)
+                                                                                                                                                                                                     {
+                                                                                                                                                                                                                 double m = U[i][k] / U[k][k];
+                                                                                                                                                                                                                             for (j = k; j < N + 1; j++)
+                                                                                                                                                                                                                                             U[i][j] -= m * U[k][j];
+                                                                                                                                                                                                                                                     }
+                                                                                                                                                                                                                                                         }
+
+
+
+
+    /*
+       for (i = 0; i < n - 1; i++)
+       {
+       for (j = i + 1; j < n; j++)
+       {
+       if (fabs(AB[i][i]) < 1e-12)
+       return 1;
+
+       m = AB[j][i] / AB[i][i];
+
+       for (k = 0; k <= n; k++)
+       AB[j][k] -= m * AB[i][k];
+       }
+       }
+     */
+
+    printf ("\n\nAB:\n");
+  for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j <= n; j++)
+	printf ("%lf ", AB[i][j]);
+      printf ("\n");
+    }
+
+
+  return 0;
+}
